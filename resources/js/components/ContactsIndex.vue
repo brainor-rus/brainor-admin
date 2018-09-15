@@ -1,5 +1,5 @@
 <template>
-    <div class="сontacts">
+    <div class="content сontacts">
         <div class="loading" v-if="loading">Загрузка....</div>
         <div class="error" v-if="error">{{ error}}</div>
         <ul v-if="contacts">

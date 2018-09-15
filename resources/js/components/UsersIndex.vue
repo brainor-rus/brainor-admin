@@ -1,5 +1,5 @@
 <template>
-    <div class="users">
+    <div class="content users">
         <div class="loading" v-if="loading">Загрузка....</div>
         <div class="error" v-if="error">{{ error}}</div>
         <ul v-if="users">

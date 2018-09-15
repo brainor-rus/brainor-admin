@@ -1,6 +1,5 @@
 <template>
     <div class="main-wrapper">
-        <transition name="fixed-sidebar-wrapper-popover">
             <div class="fixed-sidebar-wrapper"
                  v-bind:class="fixedSidebarclasses"
                  @mouseover="mouseOver"
@@ -8,7 +7,6 @@
             >
                 <left-menu></left-menu>
         </div>
-        </transition>
         <div class="content-wrapper">
             <div class="container-fluid">
                 <div class="row">
@@ -18,7 +16,9 @@
                 </div>
                 <div class="row panel-content-wrapper">
                     <div class="col-12 panel-content">
-                        <router-view></router-view>
+                        <transition name="router">
+                            <router-view></router-view>
+                        </transition>
                     </div>
                 </div>
             </div>

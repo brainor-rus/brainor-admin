@@ -14,9 +14,20 @@
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
-}
+   transition: opacity .3s;
+ }
 .fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.router-enter-active {
+  transition: opacity .3s;
+  transition-delay: .2s;
+}
+.router-leave-active {
+  transition: opacity .2s;
+}
+.router-enter, .router-leave-to {
   opacity: 0;
 }
 
@@ -106,3 +117,4 @@ body{
   border-radius: 3px;
   box-shadow: 0 1px 15px 1px rgba(39,39,39,.1);
 }
+.content{top:0;left:0}

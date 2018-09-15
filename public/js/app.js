@@ -15241,40 +15241,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "main-wrapper" },
-    [
-      _c("transition", { attrs: { name: "fixed-sidebar-wrapper-popover" } }, [
-        _c(
-          "div",
-          {
-            staticClass: "fixed-sidebar-wrapper",
-            class: _vm.fixedSidebarclasses,
-            on: { mouseover: _vm.mouseOver, mouseleave: _vm.mouseLeave }
-          },
-          [_c("left-menu")],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "content-wrapper" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "row panel-content-wrapper" }, [
-            _c(
-              "div",
-              { staticClass: "col-12 panel-content" },
-              [_c("router-view")],
-              1
-            )
-          ])
+  return _c("div", { staticClass: "main-wrapper" }, [
+    _c(
+      "div",
+      {
+        staticClass: "fixed-sidebar-wrapper",
+        class: _vm.fixedSidebarclasses,
+        on: { mouseover: _vm.mouseOver, mouseleave: _vm.mouseLeave }
+      },
+      [_c("left-menu")],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "content-wrapper" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "row panel-content-wrapper" }, [
+          _c(
+            "div",
+            { staticClass: "col-12 panel-content" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "router" } },
+                [_c("router-view")],
+                1
+              )
+            ],
+            1
+          )
         ])
       ])
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -16286,7 +16286,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "users" }, [
+  return _c("div", { staticClass: "content users" }, [
     _vm.loading
       ? _c("div", { staticClass: "loading" }, [_vm._v("Загрузка....")])
       : _vm._e(),
@@ -16428,7 +16428,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "сontacts" }, [
+  return _c("div", { staticClass: "content сontacts" }, [
     _vm.loading
       ? _c("div", { staticClass: "loading" }, [_vm._v("Загрузка....")])
       : _vm._e(),
