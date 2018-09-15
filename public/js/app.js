@@ -15090,6 +15090,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    computed: {
+        title: function title() {
+            return this.$store.state.title.title;
+        }
+    },
     methods: {
         mouseOver: function mouseOver() {
             this.fixedSidebarclasses = 'open';
@@ -15255,7 +15260,11 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "content-wrapper" }, [
       _c("div", { staticClass: "container-fluid" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 panel-header" }, [
+            _c("h1", [_vm._v(_vm._s(_vm.title))])
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "row panel-content-wrapper" }, [
           _c(
@@ -15276,18 +15285,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 panel-header" }, [
-        _c("h1", [_vm._v("Vue Router Demo App")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -15386,8 +15384,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.error = this.users = null;
             this.loading = true;
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/users').then(function (response) {
-                _this.users = response.data;
+                _this.users = response.data.data;
                 _this.loading = false;
+                _this.$store.commit('titleUpdate', response.data.meta.title);
             }).catch(function (error) {
                 _this.loading = false;
                 _this.error = error.response.data.message || error.message;
@@ -16410,8 +16409,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.error = this.users = null;
             this.loading = true;
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/contacts').then(function (response) {
-                _this.contacts = response.data;
+                _this.contacts = response.data.data;
                 _this.loading = false;
+                _this.$store.commit('titleUpdate', response.data.meta.title);
             }).catch(function (error) {
                 _this.loading = false;
                 _this.error = error.response.data.message || error.message;
@@ -17506,6 +17506,8 @@ var index_esm = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_sidebar__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_title__ = __webpack_require__(57);
+
 
 
 
@@ -17514,7 +17516,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     modules: {
-        sidebar: __WEBPACK_IMPORTED_MODULE_2__modules_sidebar__["a" /* default */]
+        sidebar: __WEBPACK_IMPORTED_MODULE_2__modules_sidebar__["a" /* default */],
+        title: __WEBPACK_IMPORTED_MODULE_3__modules_title__["a" /* default */]
     }
 }));
 
@@ -17573,6 +17576,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.state.sidebar.sidebarOpen;
         }
     }
+});
+
+/***/ }),
+/* 57 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// initial state
+var state = {
+    title: 'Главная'
+};
+
+// mutations
+var mutations = {
+    titleUpdate: function titleUpdate(state, newTitle) {
+        state.title = newTitle;
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    mutations: mutations
 });
 
 /***/ })

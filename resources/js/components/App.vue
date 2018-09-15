@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 panel-header">
-                        <h1>Vue Router Demo App</h1>
+                        <h1>{{ title }}</h1>
                     </div>
                 </div>
                 <div class="row panel-content-wrapper">
@@ -34,6 +34,11 @@
             return {
                 fixedSidebarclasses: ''
             };
+        },
+        computed: {
+            title() {
+                return this.$store.state.title.title;
+            }
         },
         methods: {
             mouseOver: function(){

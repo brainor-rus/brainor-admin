@@ -31,8 +31,9 @@
                 axios
                     .get('/api/users')
                     .then(response => {
-                        this.users = response.data;
+                        this.users = response.data.data;
                         this.loading = false;
+                        this.$store.commit('titleUpdate', response.data.meta.title);
                     })
                     .catch(error => {
                         this.loading = false;
