@@ -17,7 +17,7 @@
                 <div class="row panel-content-wrapper">
                     <div class="col-12 panel-content">
                         <transition name="router">
-                            <router-view></router-view>
+                            <router-view :key="$route.fullPath"></router-view>
                         </transition>
                     </div>
                 </div>

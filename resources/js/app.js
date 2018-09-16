@@ -5,27 +5,21 @@ import store from './store';
 Vue.use(VueRouter);
 
 import App from './components/App';
-import UsersIndex from './components/UsersIndex';
-import ContactsIndex from './components/ContactsIndex';
 import Home from './components/Home';
+import GeneralComponent from './components/GeneralComponent';
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
         {
             path: '/',
-            name: 'home',
+            name: 'Home',
             component: Home
         },
         {
-            path: '/users',
-            name: 'users.index',
-            component: UsersIndex,
-        },
-        {
-            path: '/contacts',
-            name: 'contacts.index',
-            component: ContactsIndex,
+            path: '*',
+            name: 'general-component',
+            component: GeneralComponent
         },
     ],
 });

@@ -16,5 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/sidebar-menu', 'SpaController@sidebarMenu');
+
 Route::get('/users', 'SpaController@usersIndex');
 Route::get('/contacts', 'SpaController@contactsIndex');

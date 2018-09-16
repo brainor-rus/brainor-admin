@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class SpaController extends Controller
 {
@@ -10,13 +11,32 @@ class SpaController extends Controller
     {
         return view('spa');
     }
-    public function usersIndex()
+    public function sidebarMenu()
     {
-        $users = [
+        $response = [
             'meta' =>[
                 'title' => 'Пользователи'
             ],
             'data' =>[
+                [
+                    'url' => '/users',
+                    'icon' => 'fas fa-users',
+                    'text' => 'Пользователи'
+                ],
+                [
+                    'url' => '/contacts',
+                    'icon' => 'fas fa-address-book',
+                    'text' => 'Контакты'
+                ]
+            ]
+        ];
+
+        return response()->json($response);
+    }
+
+    public function usersIndex()
+    {
+        $users = [
                 [
                     'name' => 'Антон',
                     'email' => 'anton@mail.ru'
@@ -29,20 +49,22 @@ class SpaController extends Controller
                     'name' => 'Толик',
                     'email' => 'tolik@mail.ru'
                 ],
-            ]
         ];
-        return response()->json($users);
+
+        return response()->json([
+                'html' => View::make('usersIndex')->with(compact('users'))->render(),
+                'meta' => [
+                    'title' => 'Пользователи'
+                ]
+            ]
+        );
     }
 
     public function contactsIndex()
     {
         $contacts = [
-            'meta' =>[
-                'title' => 'Контакты'
-            ],
-            'data' =>[
                 [
-                    'user' => 'Антон',
+                    'name' => 'Антон',
                     'address' => 'г.Москва, ул. Уличная, д. 1',
                     'tels' => ['+7(111)111-11-11','+7(111)222-22-22','+7(111)222-22-22'],
                     'email' => 'anton@mail.ru'
@@ -59,8 +81,13 @@ class SpaController extends Controller
                     'tels' => ['+7(113)111-11-11','+7(113)222-22-22','+7(113)222-22-22'],
                     'email' => 'tolik@mail.ru'
                 ],
-            ]
         ];
-        return response()->json($contacts);
+        return response()->json([
+                'html' => View::make('contactsIndex')->with(compact('contacts'))->render(),
+                'meta' => [
+                    'title' => 'Контакты'
+                ]
+            ]
+        );
     }
 }
