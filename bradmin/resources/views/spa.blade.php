@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link href="{{ asset('packages/bradmin/css/app.css') }}" rel="stylesheet">
     {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
-
+    <script>
+        window.adminUrl = '{{ config('bradmin.admin_url') }}';
+    </script>
     <title>{{ config('bradmin.title') }}</title>
 </head>
 <body>

@@ -35,7 +35,7 @@
                 this.error = this.responseData = null;
                 this.classes = '';
                 axios
-                    .get('/bradmin/sidebar-menu')
+                    .post('/bradmin/sidebar-menu')
                     .then(response => {
                         this.responseData = response.data.data;
                         this.classes = response.data.meta.class;

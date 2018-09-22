@@ -26,14 +26,34 @@
                 this.error = this.responseData = null;
                 this.loading = true;
                 this.classes = '';
+                let ajaxUrl = '';
+                if(this.$route.path === '/'+this.$store.state.options.adminUrl){
+                    ajaxUrl = '/' + this.$store.state.options.adminUrl +'/dashboard';
+                }
+                else{
+                    ajaxUrl = this.$route.path;
+                }
                 axios
-                    .get('/bradmin'+this.$router.history.current.path)
+                    .post(ajaxUrl)
                     .then(response => {
-                        this.responseData = response.data.data;
-                        this.responseHtml = response.data.html;
+                        if (typeof response.data.data !== 'undefined') {
+                            this.responseData = response.data.data;
+                        }
+
+                        if (typeof response.data.html !== 'undefined') {
+                            this.responseHtml = response.data.html;
+                        }
+
+                        if (typeof response.data.meta !== 'undefined') {
+                            if (typeof response.data.meta.title !== 'undefined') {
+                                this.$store.commit('titleUpdate', response.data.meta.title);
+                            }
+
+                            if (typeof response.data.meta.class !== 'undefined') {
+                                this.classes = response.data.meta.class;
+                            }
+                        }
                         this.loading = false;
-                        this.classes = response.data.meta.class;
-                        this.$store.commit('titleUpdate', response.data.meta.title);
                     })
                     .catch(error => {
                         this.loading = false;

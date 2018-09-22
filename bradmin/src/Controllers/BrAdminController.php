@@ -4,6 +4,7 @@ namespace Bradmin\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
 
 class BrAdminController extends Controller
 {
@@ -11,6 +12,17 @@ class BrAdminController extends Controller
     public function getIndex()
     {
         return view('bradmin::spa');
+    }
+
+    public function getDashboard()
+    {
+        return response()->json([
+                'html' => View::make('bradmin::dashboard')->render(),
+                'meta' => [
+                    'title' => 'Главная'
+                ]
+            ]
+        );
     }
 
     public function getSidebarMenu()
@@ -36,7 +48,7 @@ class BrAdminController extends Controller
         return response()->json($response);
     }
 
-    public function getDisplay()
+    public function getDisplay($section)
     {
 
     }

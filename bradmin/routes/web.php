@@ -1,36 +1,43 @@
 <?php
 
-Route::get('/bradmin', [
+Route::get('/'.config('bradmin.admin_url'), [
     'as'   => 'bradmin.index',
     'uses' => 'Bradmin\Controllers\BrAdminController@getIndex',
 ]);
 
-Route::get('/bradmin/sidebar-menu', [
+Route::get('/'.config('bradmin.admin_url').'/{any}', 'Bradmin\Controllers\BrAdminController@getIndex')->where('any', '.*');
+
+Route::post('/'.config('bradmin.admin_url').'/dashboard', [
+    'as'   => 'bradmin.dashboard',
+    'uses' => 'Bradmin\Controllers\BrAdminController@getDashboard',
+]);
+
+Route::post('/'.config('bradmin.admin_url').'/sidebar-menu', [
     'as'   => 'bradmin.sidebarMenu',
     'uses' => 'Bradmin\Controllers\BrAdminController@getSidebarMenu',
 ]);
 
-Route::get('/bradmin/{section}', [
+Route::post('/'.config('bradmin.admin_url').'/{section}', [
     'as'   => 'bradmin.section.display',
-    'uses' => 'BrAdminController@getDisplay',
+    'uses' => 'Bradmin\Controllers\BrAdminController@getDisplay',
 ]);
 
-Route::get('/bradmin/{section}/create', [
-    'as'   => 'bradmin.section.create',
-    'uses' => 'BrAdminController@getCreate',
+Route::post('/'.config('bradmin.admin_url').'/{section}/create', [
+    'as'   => 'bradmin.section.create.form',
+    'uses' => 'Bradmin\Controllers\BrAdminController@getCreate',
 ]);
 
-Route::get('/bradmin/{section}/{id}', [
-    'as'   => 'bradmin.section.edit',
-    'uses' => 'BrAdminController@getEdit',
+Route::post('/'.config('bradmin.admin_url').'/{section}/{id}', [
+    'as'   => 'bradmin.section.edit.form',
+    'uses' => 'Bradmin\Controllers\BrAdminController@getEdit',
 ]);
 
-Route::post('/bradmin/{section}/{id}', [
-    'as'   => 'bradmin.section.edit',
-    'uses' => 'BrAdminController@postEdit',
+Route::post('/'.config('bradmin.admin_url').'/{section}/update', [
+    'as'   => 'bradmin.section.update.action',
+    'uses' => 'Bradmin\Controllers\BrAdminController@postEdit',
 ]);
 
-Route::delete('/bradmin/{section}/{id}', [
-    'as'   => 'bradmin.section.delete',
-    'uses' => 'BrAdminController@deleteDelete',
+Route::post('/'.config('bradmin.admin_url').'/{section}/{id}/delete', [
+    'as'   => 'bradmin.section.delete.action',
+    'uses' => 'Bradmin\Controllers\BrAdminController@deleteDelete',
 ]);
