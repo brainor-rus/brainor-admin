@@ -2,9 +2,11 @@
 
 namespace App\Admin\Sections;
 
-class Contacts
+use Bradmin\Section;
+
+class Contacts extends Section
 {
-    public function onDisplay(){
+    public static function onDisplay(){
         $contacts = [
             [
                 'name' => 'Антон',
@@ -25,5 +27,7 @@ class Contacts
                 'email' => 'tolik@mail.ru'
             ],
         ];
+
+        return $contacts;
     }
 }

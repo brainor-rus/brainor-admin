@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 
+use Bradmin\Section;
+
 class BrAdminController extends Controller
 {
 
@@ -48,9 +50,12 @@ class BrAdminController extends Controller
         return response()->json($response);
     }
 
-    public function getDisplay($section)
+    public function getDisplay(Section $section, $sectionName)
     {
 
+        $display = $section->fireDisplay($sectionName);
+
+        return $this->render($display);
     }
 
     public function getCreate()
@@ -71,5 +76,16 @@ class BrAdminController extends Controller
     public function deleteDelete()
     {
 
+    }
+
+    public function render($content)
+    {
+        return response()->json([
+                'html' => View::make('bradmin::content.general')->with(compact('content'))->render(),
+                'meta' => [
+                    'title' => 'Тут будет заголовок'
+                ]
+            ]
+        );
     }
 }
