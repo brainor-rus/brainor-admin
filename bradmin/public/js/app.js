@@ -16233,8 +16233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.error = this.responseData = null;
             this.classes = '';
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/bradmin/sidebar-menu').then(function (response) {
-                _this.responseData = response.data.data;
-                _this.classes = response.data.meta.class;
+                _this.responseData = response.data;
             }).catch(function (error) {
                 _this.error = error.response.data.message || error.message;
             });
@@ -17134,7 +17133,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "ul",
-    { staticClass: "main-menu", class: _vm.classes },
+    { staticClass: "main-menu" },
     [
       _vm.error
         ? _c("li", { staticClass: "error" }, [_vm._v(_vm._s(_vm.error))])
@@ -17404,6 +17403,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 ajaxUrl = this.$route.path;
             }
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(ajaxUrl).then(function (response) {
+                console.log(response.data);
                 if (typeof response.data.data !== 'undefined') {
                     _this.responseData = response.data.data;
                 }

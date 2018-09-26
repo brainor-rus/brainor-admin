@@ -27,7 +27,7 @@ Route::post('/'.config('bradmin.admin_url').'/{section}/create', [
     'uses' => 'Bradmin\Controllers\BrAdminController@getCreate',
 ]);
 
-Route::post('/'.config('bradmin.admin_url').'/{section}/{id}', [
+Route::post('/'.config('bradmin.admin_url').'/{section}/edit/{id}', [
     'as'   => 'bradmin.section.edit.form',
     'uses' => 'Bradmin\Controllers\BrAdminController@getEdit',
 ]);

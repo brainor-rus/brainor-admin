@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 
 use Bradmin\Section;
+use Bradmin\Navigation\NavigationManager;
 
 class BrAdminController extends Controller
 {
@@ -27,27 +28,11 @@ class BrAdminController extends Controller
         );
     }
 
-    public function getSidebarMenu()
+    public function getSidebarMenu(\Illuminate\Contracts\Foundation\Application  $app)
     {
-        $response = [
-            'meta' =>[
-                'title' => 'Пользователи'
-            ],
-            'data' =>[
-                [
-                    'url' => '/bradmin/users',
-                    'icon' => 'fas fa-users',
-                    'text' => 'Пользователи'
-                ],
-                [
-                    'url' => '/bradmin/contacts',
-                    'icon' => 'fas fa-address-book',
-                    'text' => 'Контакты'
-                ]
-            ]
-        ];
+        $navigation = NavigationManager::returnNavigation($app);
 
-        return response()->json($response);
+        return response()->json($navigation);
     }
 
     public function getDisplay(Section $section, $sectionName)
@@ -60,7 +45,13 @@ class BrAdminController extends Controller
 
     public function getCreate()
     {
-
+        return response()->json([
+                'html' => View::make('bradmin::dashboard')->render(),
+                'meta' => [
+                    'title' => 'Главная'
+                ]
+            ]
+        );
     }
 
     public function getEdit()

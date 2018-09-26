@@ -36,6 +36,7 @@
                 axios
                     .post(ajaxUrl)
                     .then(response => {
+                        console.log(response.data);
                         if (typeof response.data.data !== 'undefined') {
                             this.responseData = response.data.data;
                         }

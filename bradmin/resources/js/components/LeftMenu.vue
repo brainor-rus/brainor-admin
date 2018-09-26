@@ -1,5 +1,5 @@
 <template>
-    <ul class="main-menu" :class="classes">
+    <ul class="main-menu">
         <li class="error" v-if="error">{{ error}}</li>
         <li v-for="menuItem in responseData">
             <router-link :to="menuItem.url">
@@ -37,8 +37,7 @@
                 axios
                     .post('/bradmin/sidebar-menu')
                     .then(response => {
-                        this.responseData = response.data.data;
-                        this.classes = response.data.meta.class;
+                        this.responseData = response.data;
                     })
                     .catch(error => {
                         this.error = error.response.data.message || error.message;
