@@ -10510,6 +10510,19 @@ body {
   font-size: 14px;
 }
 
+body::-webkit-scrollbar {
+  width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
 .main-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -10531,6 +10544,10 @@ body {
   overflow: hidden;
 }
 
+.fixed-sidebar-wrapper.open {
+  overflow-y: auto;
+}
+
 .fixed-sidebar-wrapper:hover {
   width: 260px;
 }
@@ -10547,6 +10564,11 @@ body {
   list-style: none;
   min-width: 260px;
   padding: 15px;
+}
+
+.fixed-sidebar-wrapper .sub-menu {
+  list-style: none;
+  padding-left: 0;
 }
 
 .fixed-sidebar-wrapper .main-menu .icon {
@@ -10579,6 +10601,12 @@ body {
   -webkit-box-shadow: none;
           box-shadow: none;
   color: #fff;
+}
+
+.fixed-sidebar-wrapper .main-menu li > a:hover,
+.fixed-sidebar-wrapper .main-menu li > a.router-link-exact-active {
+  background-color: #ffffff;
+  color: #0d2746;
 }
 
 .content-wrapper {
