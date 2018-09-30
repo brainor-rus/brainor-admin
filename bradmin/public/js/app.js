@@ -16215,6 +16215,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17201,7 +17207,18 @@ var render = function() {
                 "router-link",
                 { attrs: { to: menuItem.url } },
                 [
-                  _c("i", { staticClass: "icon", class: menuItem.icon }),
+                  menuItem.iconText
+                    ? _c("i", { staticClass: "icon" }, [
+                        _vm._v(_vm._s(menuItem.iconText))
+                      ])
+                    : [
+                        menuItem.icon
+                          ? _c("i", {
+                              staticClass: "icon",
+                              class: menuItem.icon
+                            })
+                          : _vm._e()
+                      ],
                   _vm._v(" "),
                   _c("transition", { attrs: { name: "fade" } }, [
                     _c(
@@ -17220,13 +17237,24 @@ var render = function() {
                     )
                   ])
                 ],
-                1
+                2
               )
             : _c(
                 "router-link",
                 { attrs: { to: menuItem.url, exact: "" } },
                 [
-                  _c("i", { staticClass: "icon", class: menuItem.icon }),
+                  menuItem.iconText
+                    ? _c("i", { staticClass: "icon" }, [
+                        _vm._v(_vm._s(menuItem.iconText))
+                      ])
+                    : [
+                        menuItem.icon
+                          ? _c("i", {
+                              staticClass: "icon",
+                              class: menuItem.icon
+                            })
+                          : _vm._e()
+                      ],
                   _vm._v(" "),
                   _c("transition", { attrs: { name: "fade" } }, [
                     _c(
@@ -17245,7 +17273,7 @@ var render = function() {
                     )
                   ])
                 ],
-                1
+                2
               ),
           _vm._v(" "),
           menuItem.nodes
@@ -17297,7 +17325,18 @@ var render = function() {
                   "router-link",
                   { attrs: { to: menuItem.url } },
                   [
-                    _c("i", { staticClass: "icon", class: menuItem.icon }),
+                    menuItem.iconText
+                      ? _c("i", { staticClass: "icon" }, [
+                          _vm._v(_vm._s(menuItem.iconText))
+                        ])
+                      : [
+                          menuItem.icon
+                            ? _c("i", {
+                                staticClass: "icon",
+                                class: menuItem.icon
+                              })
+                            : _vm._e()
+                        ],
                     _vm._v(" "),
                     _c("transition", { attrs: { name: "fade" } }, [
                       _c(
@@ -17316,13 +17355,24 @@ var render = function() {
                       )
                     ])
                   ],
-                  1
+                  2
                 )
               : _c(
                   "router-link",
                   { attrs: { to: menuItem.url, exact: "" } },
                   [
-                    _c("i", { staticClass: "icon", class: menuItem.icon }),
+                    menuItem.iconText
+                      ? _c("i", { staticClass: "icon" }, [
+                          _vm._v(_vm._s(menuItem.iconText))
+                        ])
+                      : [
+                          menuItem.icon
+                            ? _c("i", {
+                                staticClass: "icon",
+                                class: menuItem.icon
+                              })
+                            : _vm._e()
+                        ],
                     _vm._v(" "),
                     _c("transition", { attrs: { name: "fade" } }, [
                       _c(
@@ -17341,7 +17391,7 @@ var render = function() {
                       )
                     ])
                   ],
-                  1
+                  2
                 ),
             _vm._v(" "),
             menuItem.nodes
@@ -17659,6 +17709,12 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //

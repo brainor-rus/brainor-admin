@@ -18,11 +18,13 @@ class PluginNavigation
                     [
                         'url' => '/'.config('bradmin.admin_url').'/pay/banks',
                         'icon' => 'fas fa-users',
+                        'iconText' => 'Б',
                         'text' => 'Банки',
                     ],
                     [
                         'url' => '/'.config('bradmin.admin_url').'/pay/comission',
                         'icon' => 'fas fa-users',
+                        'iconText' => 'К',
                         'text' => 'Комиссии',
                     ],
                 ]
