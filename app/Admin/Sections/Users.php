@@ -3,25 +3,19 @@
 namespace App\Admin\Sections;
 
 use Bradmin\Section;
+use Bradmin\SectionBuilder\Display\BaseDisplay\Display;
+use Bradmin\SectionBuilder\Display\Table\Columns\BaseColumn\Column;
+use Bradmin\SectionBuilder\Display\Table\DisplayTable;
 
-class Users  extends Section
+class Users extends Section
 {
     public static function onDisplay(){
-        $users = [
-            [
-                'name' => 'Антон',
-                'email' => 'anton@mail.ru'
-            ],
-            [
-                'name' => 'Вася',
-                'email' => 'vasia@mail.ru'
-            ],
-            [
-                'name' => 'Толик',
-                'email' => 'tolik@mail.ru'
-            ],
-        ];
 
-        return $users;
+        $display = Display::table([
+            Column::text('name', 'Имя'),
+            Column::text('email', 'Email'),
+        ])->setPagination(1);
+
+        return $display;
     }
 }
