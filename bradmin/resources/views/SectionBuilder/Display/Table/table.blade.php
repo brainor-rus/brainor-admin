@@ -11,7 +11,19 @@
         @foreach($fields as $field)
             <tr>
                 @foreach($columns as $column)
-                    <td scope="col">{!! $field[$column->getName()] !!}</td>
+                    <td scope="col">
+                        @if(!$field[$column->getName()] instanceof Countable)
+                            {!! $field[$column->getName()] !!}
+                        @else
+                            @php
+                                $path = explode('.', $column->getName());
+                                $name = end($path);
+                            @endphp
+                            @foreach($field[$column->getName()] as $value)
+                                <span class="badge badge-info text-white">{!! $value->{$name} !!}</span>
+                            @endforeach
+                        @endif
+                    </td>
                 @endforeach
                 <td class="text-right">
                     <a href="{{ Request::url() . '/' . $field['brRowId'] . '/edit/' }}" class="text-success">Ред.</a>

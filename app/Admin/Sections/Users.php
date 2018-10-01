@@ -14,7 +14,9 @@ class Users extends Section
         $display = Display::table([
             Column::text('name', 'Имя'),
             Column::text('email', 'Email'),
-        ])->setPagination(1);
+            Column::text('contact.value', 'Контакты'),
+            Column::text('roles.name', 'Роли'),
+        ])->setPagination(2);
 
         return $display;
     }

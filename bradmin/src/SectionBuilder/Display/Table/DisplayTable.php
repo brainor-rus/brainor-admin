@@ -23,16 +23,45 @@ class DisplayTable
 
     public function render($sectionName)
     {
-        $data = DB::table($sectionName)->paginate($this->getPagination());
         $columns = $this->getColumns();
-        $fields = array();
+        $relationData = null;
 
+        foreach ($columns as $column)
+        {
+            $exp = explode('.', $column->getName());
+            if(count($exp) > 1)
+            {
+                $relationData[] = implode(".", array_slice($exp, 0, -1));
+            }
+        }
+
+        $modelPath = config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName)));
+        $model = new $modelPath;
+        $data = $model->when(isset($relationData), function ($query) use ($relationData) {
+            $query->with($relationData);
+        })->paginate($this->getPagination());
+
+        $fields = array();
 
         foreach ($data as $key => $row)
         {
             foreach ($columns as $column)
             {
-                $fields[$key][$column->getName()] = $column->render($row->{$column->getName()});
+                $names = explode('.', $column->getName());
+
+                $rowVal = $row;
+                foreach ($names as $name)
+                {
+                    if(!(is_array($rowVal) || $rowVal instanceof \Countable))
+                    {
+                        $rowVal = $rowVal->{$name} ?? null;
+                    } else
+                    {
+                        break;
+                    }
+                }
+
+                $fields[$key][$column->getName()] = $column->render($rowVal);
             }
             $fields[$key]['brRowId'] = $row->id;
         }
