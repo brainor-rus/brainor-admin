@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+Route::get('/', 'SpaController@index');

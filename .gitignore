@@ -1,5 +1,6 @@
 vendor/
 node_modules/
+bradmin/node_modules/
 npm-debug.log
 
 # Laravel 4 specific
@@ -10,6 +11,7 @@ app/storage/
 public/storage
 public/hot
 storage
+
 .env.*.php
 .env.php
 .env
