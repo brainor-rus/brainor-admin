@@ -14,9 +14,17 @@ class BrainorPayController extends Controller
     public function displayBanks()
     {
 
-        $banks = GetData::getPaymentData([
-            'table' => 'brainor_pay_banks',
-        ]);
+//        $banks = GetData::getPaymentData([
+//            'table' => 'brainor_pay_banks',
+//            'where' => function($query) {
+//                $query->where('bik', 1);
+//            }
+//        ]);
+
+        $banksData = new GetData('brainor_pay_banks',  function($query) {
+            $query->where('bik', 1);
+        });
+        $banks = $banksData->get();
 
         return response()->json([
                 'html' => View::make('brainorPay::admin.banks.display')->with(compact('banks'))->render(),
