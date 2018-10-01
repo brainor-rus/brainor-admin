@@ -40,7 +40,7 @@ class BrAdminController extends Controller
 
         $display = $section->fireDisplay($sectionName);
 
-        return $this->render($display);
+        return $this->render($display->render($sectionName));
     }
 
     public function getCreate()
