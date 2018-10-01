@@ -3,6 +3,38 @@
         <div class="loading" v-if="loading">Загрузка....</div>
         <div class="error" v-if="error">{{ error}}</div>
         <div v-html="responseHtml"></div>
+
+        <nav v-if="pagination">
+            <ul class="pagination" role="navigation">
+                <li class="page-item" v-bind:class="[ pagination.current_page <= 1 ? 'disabled' : '']">
+                    <router-link :to="{query: {page: 1}}" class="page-link" aria-label="« First">
+                        <span aria-hidden="true">‹‹</span>
+                    </router-link>
+                </li>
+                <li class="page-item" v-bind:class="[ pagination.current_page <= 1 ? 'disabled' : '']">
+                    <router-link :to="{query: {page: pagination.current_page - 1}}" class="page-link" aria-label="« Previous">
+                        <span aria-hidden="true">‹</span>
+                    </router-link>
+                </li>
+                <li class="page-item" v-for="page in pagination.pagesNumber"
+                    v-bind:class="[ page == currentPage ? 'active' : '']">
+                    <router-link :to="{query: {page: page}}" class="page-link">
+                        {{page}}
+                    </router-link>
+                </li>
+                <li class="page-item" v-bind:class="[ pagination.current_page >= pagination.last_page ? 'disabled' : '']">
+                    <router-link :to="{query: {page: pagination.current_page + 1}}" class="page-link" aria-label="Next »">
+                        <span aria-hidden="true">›</span>
+                    </router-link>
+                </li>
+                <li class="page-item" v-bind:class="[ pagination.current_page >= pagination.last_page ? 'disabled' : '']">
+                    <router-link :to="{query: {page: pagination.last_page}}" class="page-link" aria-label="Last »">
+                        <span aria-hidden="true">››</span>
+                    </router-link>
+                </li>
+            </ul>
+        </nav>
+
     </div>
 </template>
 <script>
@@ -15,14 +47,34 @@
                 responseData: null,
                 responseHtml: null,
                 error: null,
-                classes: ''
+                classes: '',
+                pagination: {
+                    total: 0,
+                    per_page: 7,
+                    from: 1,
+                    to: 0,
+                    last_page: 1,
+                    current_page: 1,
+                    each_side: 3,
+                    pagesNumber:[]
+                },
             };
         },
-        created() {
-            this.fetchData();
+        created: function () {
+            this.fetchData(this.currentPage);
+        },
+        computed: {
+            currentPage() {
+                if (typeof this.$route.query.page === 'undefined') {
+                    return 1;
+                }else{
+                    return this.$route.query.page;
+                }
+            },
         },
         methods: {
-            fetchData() {
+            fetchData(page) {
+
                 this.error = this.responseData = null;
                 this.loading = true;
                 this.classes = '';
@@ -33,11 +85,38 @@
                 else{
                     ajaxUrl = this.$route.path;
                 }
+                console.log(this.currentPage);
+                this.$router.replace({ query: {page: page} })
                 axios
-                    .post(ajaxUrl)
+                    .post(ajaxUrl,
+                        {'page':this.currentPage,}
+                    )
                     .then(response => {
                         if (typeof response.data.data !== 'undefined') {
                             this.responseData = response.data.data;
+                            if (typeof response.data.data.pagination !== 'undefined') {
+                                this.pagination.total = response.data.data.pagination.total;
+                                this.pagination.per_page = response.data.data.pagination.per_page;
+                                this.pagination.from = response.data.data.pagination.from;
+                                this.pagination.to = response.data.data.pagination.to;
+                                this.pagination.last_page = response.data.data.pagination.last_page;
+                                this.pagination.current_page = response.data.data.pagination.current_page;
+
+                                var from = this.pagination.current_page - this.pagination.each_side;
+                                if (from < 1) {
+                                    from = 1;
+                                }
+                                var to = from + (this.pagination.each_side * 2);
+                                if (to >= this.pagination.last_page) {
+                                    to = this.pagination.last_page;
+                                }
+                                var pagesArray = [];
+                                while (from <= to) {
+                                    pagesArray.push(from);
+                                    from++;
+                                }
+                                this.pagination.pagesNumber = pagesArray;
+                            }
                         }
 
                         if (typeof response.data.html !== 'undefined') {
@@ -59,6 +138,10 @@
                         this.loading = false;
                         this.error = error.response.data.message || error.message;
                     });
+            },
+            changePage: function (page) {
+                this.pagination.current_page = page;
+                this.fetchData(page);
             }
         }
     }
