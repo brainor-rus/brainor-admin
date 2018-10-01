@@ -10639,7 +10639,7 @@ body {
   background: white;
   min-height: calc(100vh - 123px);
   margin-top: -30px;
-  padding: 15px 0;
+  padding: 15px 15px;
   border-radius: 3px;
   -webkit-box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
           box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);

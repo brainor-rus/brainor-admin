@@ -8,6 +8,7 @@ namespace Bradmin\Plugins\BrainorPay\Providers;
 use Illuminate\Support\ServiceProvider;
 use Bradmin\Plugins\BrainorPay\Navigation\PluginNavigation;
 use Bradmin\Plugins\BrainorPay\Helpers\Payment;
+use Bradmin\Plugins\BrainorPay\Helpers\GetData;
 
 class BrainorPay extends ServiceProvider
 {
@@ -42,5 +43,6 @@ class BrainorPay extends ServiceProvider
     public function register()
     {
         $this->app->bind('Payment', Payment::class);
+        $this->app->bind('GetData', GetData::class);
     }
 }
