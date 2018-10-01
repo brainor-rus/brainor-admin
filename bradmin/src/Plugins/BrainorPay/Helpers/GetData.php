@@ -8,30 +8,13 @@ class GetData
 {
     private $table, $query;
 
-    public function __construct($table, $query = null)
+    public function __construct($table = null, $query = null)
     {
-        $this->setTable($table);
+        $this->table($table);
         $this->setQuery($query);
     }
 
-//    $args = [
-//        'table' => 'tableName',
-//        'where' => [['field1, $param],['field2', $param2]]
-//    ]
-    public static function getPaymentData($args){
-
-        $paymentData = DB::table($args['table']);
-
-        if(isset($args['where'])){
-            $paymentData = $paymentData->where($args['where']);
-        }
-
-        $paymentData = $paymentData->get();
-
-        return $paymentData;
-    }
-
-    public function setTable($table)
+    public function table($table)
     {
         $this->table = $table;
     }
@@ -43,18 +26,16 @@ class GetData
 
     public function get()
     {
-        return DB::table($this->table)->when(
-            isset($this->query),
-            $this->query
-        )->get();
+        return DB::table($this->table)
+            ->when(isset($this->query), $this->query)
+            ->get();
     }
 
     public function first()
     {
-        return DB::table($this->table)->when(
-            isset($this->query),
-            $this->query
-        )->first();
+        return DB::table($this->table)
+            ->when(isset($this->query), $this->query)
+            ->first();
     }
 
 }

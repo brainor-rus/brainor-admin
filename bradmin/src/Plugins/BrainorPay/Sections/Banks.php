@@ -1,24 +1,21 @@
 <?php
 
-namespace App\Admin\Sections;
+namespace Bradmin\Plugins\BrainorPay\Sections;
 
 use Bradmin\Section;
 use Bradmin\SectionBuilder\Display\BaseDisplay\Display;
 use Bradmin\SectionBuilder\Display\Table\Columns\BaseColumn\Column;
 use Bradmin\SectionBuilder\Display\Table\DisplayTable;
-use Illuminate\Support\Facades\Request;
 
-class Users extends Section
+class Banks extends Section
 {
-    protected $title = 'Пользователи';
-
-    public static function onDisplay(Request $request){
+    public static function onDisplay(){
 
         $display = Display::table([
             Column::text('name', 'Имя'),
             Column::text('email', 'Email'),
-//            Column::text('contact.value', 'Контакты'),
-//            Column::text('roles.name', 'Роли'),
+            Column::text('contact.value', 'Контакты'),
+            Column::text('roles.name', 'Роли'),
         ])->setPagination(2);
 
         return $display;

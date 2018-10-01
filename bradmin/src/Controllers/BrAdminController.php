@@ -39,8 +39,22 @@ class BrAdminController extends Controller
     {
 
         $display = $section->fireDisplay($sectionName);
+        $results = $display->render($sectionName);
+        $html = $results['view'];
+        $pagination = [
+            'total' => $results['data']->total(),
+            'per_page' => $results['data']->perPage(),
+            'current_page' => $results['data']->currentPage(),
+            'last_page' => $results['data']->lastPage(),
+            'from' => $results['data']->firstItem(),
+            'to' => $results['data']->lastItem()
+        ];
+        $meta = [
+            'title' => 'Тут будет заголовок'
+        ];
 
-        return $this->render($display->render($sectionName));
+
+        return $this->render($html,$pagination,$meta);
     }
 
     public function getCreate()
@@ -69,13 +83,14 @@ class BrAdminController extends Controller
 
     }
 
-    public function render($content)
+    public function render($html, $pagination=null, $meta=null)
     {
         return response()->json([
-                'html' => View::make('bradmin::content.general')->with(compact('content'))->render(),
-                'meta' => [
-                    'title' => 'Тут будет заголовок'
-                ]
+                'html' => View::make('bradmin::content.general')->with(compact('html'))->render(),
+                'data' => [
+                    'pagination' => $pagination,
+                    ],
+                'meta' => $meta
             ]
         );
     }

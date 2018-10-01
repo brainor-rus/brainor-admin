@@ -6,19 +6,17 @@ use Bradmin\Section;
 use Bradmin\SectionBuilder\Display\BaseDisplay\Display;
 use Bradmin\SectionBuilder\Display\Table\Columns\BaseColumn\Column;
 use Bradmin\SectionBuilder\Display\Table\DisplayTable;
-use Illuminate\Support\Facades\Request;
 
-class Users extends Section
+class Banks extends Section
 {
-    protected $title = 'Пользователи';
+    protected $title = 'Банки';
 
-    public static function onDisplay(Request $request){
+    public static function onDisplay(){
 
+        dd(self::title);
         $display = Display::table([
             Column::text('name', 'Имя'),
-            Column::text('email', 'Email'),
-//            Column::text('contact.value', 'Контакты'),
-//            Column::text('roles.name', 'Роли'),
+            Column::text('bik', 'БИК'),
         ])->setPagination(2);
 
         return $display;
