@@ -21,10 +21,11 @@ class BrainorPayController extends Controller
 //            }
 //        ]);
 
-        $banksData = new GetData('brainor_pay_banks',  function($query) {
-            $query->where('bik', 1);
-        });
-        $banks = $banksData->get();
+        $banks = new GetData;
+
+        $banks->table('brainor_pay_banks');
+
+        $banks = $banks->get();
 
         return response()->json([
                 'html' => View::make('brainorPay::admin.banks.display')->with(compact('banks'))->render(),

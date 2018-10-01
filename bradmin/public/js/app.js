@@ -17649,6 +17649,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17659,15 +17691,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             responseData: null,
             responseHtml: null,
             error: null,
-            classes: ''
+            classes: '',
+            pagination: {
+                total: 0,
+                per_page: 7,
+                from: 1,
+                to: 0,
+                last_page: 1,
+                current_page: 1,
+                each_side: 3,
+                pagesNumber: []
+            }
         };
     },
-    created: function created() {
-        this.fetchData();
-    },
 
+    created: function created() {
+        this.fetchData(this.currentPage);
+    },
+    computed: {
+        currentPage: function currentPage() {
+            if (typeof this.$route.query.page === 'undefined') {
+                return 1;
+            } else {
+                return this.$route.query.page;
+            }
+        }
+    },
     methods: {
-        fetchData: function fetchData() {
+        fetchData: function fetchData(page) {
             var _this = this;
 
             this.error = this.responseData = null;
@@ -17679,9 +17730,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 ajaxUrl = this.$route.path;
             }
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(ajaxUrl).then(function (response) {
+            console.log(this.currentPage);
+            this.$router.replace({ query: { page: page } });
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(ajaxUrl, { 'page': this.currentPage }).then(function (response) {
                 if (typeof response.data.data !== 'undefined') {
                     _this.responseData = response.data.data;
+                    if (typeof response.data.data.pagination !== 'undefined') {
+                        _this.pagination.total = response.data.data.pagination.total;
+                        _this.pagination.per_page = response.data.data.pagination.per_page;
+                        _this.pagination.from = response.data.data.pagination.from;
+                        _this.pagination.to = response.data.data.pagination.to;
+                        _this.pagination.last_page = response.data.data.pagination.last_page;
+                        _this.pagination.current_page = response.data.data.pagination.current_page;
+
+                        var from = _this.pagination.current_page - _this.pagination.each_side;
+                        if (from < 1) {
+                            from = 1;
+                        }
+                        var to = from + _this.pagination.each_side * 2;
+                        if (to >= _this.pagination.last_page) {
+                            to = _this.pagination.last_page;
+                        }
+                        var pagesArray = [];
+                        while (from <= to) {
+                            pagesArray.push(from);
+                            from++;
+                        }
+                        _this.pagination.pagesNumber = pagesArray;
+                    }
                 }
 
                 if (typeof response.data.html !== 'undefined') {
@@ -17702,6 +17778,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.loading = false;
                 _this.error = error.response.data.message || error.message;
             });
+        },
+
+        changePage: function changePage(page) {
+            this.pagination.current_page = page;
+            this.fetchData(page);
         }
     }
 });
@@ -17723,7 +17804,161 @@ var render = function() {
       ? _c("div", { staticClass: "error" }, [_vm._v(_vm._s(_vm.error))])
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { domProps: { innerHTML: _vm._s(_vm.responseHtml) } })
+    _c("div", { domProps: { innerHTML: _vm._s(_vm.responseHtml) } }),
+    _vm._v(" "),
+    _vm.pagination
+      ? _c("nav", [
+          _c(
+            "ul",
+            { staticClass: "pagination", attrs: { role: "navigation" } },
+            [
+              _c(
+                "li",
+                {
+                  staticClass: "page-item",
+                  class: [_vm.pagination.current_page <= 1 ? "disabled" : ""]
+                },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "page-link",
+                      attrs: {
+                        to: { query: { page: 1 } },
+                        "aria-label": "« First"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("‹‹")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "page-item",
+                  class: [_vm.pagination.current_page <= 1 ? "disabled" : ""]
+                },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "page-link",
+                      attrs: {
+                        to: {
+                          query: { page: _vm.pagination.current_page - 1 }
+                        },
+                        "aria-label": "« Previous"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("‹")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.pagination.pagesNumber, function(page) {
+                return _c(
+                  "li",
+                  {
+                    staticClass: "page-item",
+                    class: [page == _vm.currentPage ? "active" : ""]
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "page-link",
+                        attrs: { to: { query: { page: page } } }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(page) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "page-item",
+                  class: [
+                    _vm.pagination.current_page >= _vm.pagination.last_page
+                      ? "disabled"
+                      : ""
+                  ]
+                },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "page-link",
+                      attrs: {
+                        to: {
+                          query: { page: _vm.pagination.current_page + 1 }
+                        },
+                        "aria-label": "Next »"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("›")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "page-item",
+                  class: [
+                    _vm.pagination.current_page >= _vm.pagination.last_page
+                      ? "disabled"
+                      : ""
+                  ]
+                },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "page-link",
+                      attrs: {
+                        to: { query: { page: _vm.pagination.last_page } },
+                        "aria-label": "Last »"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("››")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            2
+          )
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

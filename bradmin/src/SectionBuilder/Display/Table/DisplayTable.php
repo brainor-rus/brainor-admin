@@ -40,7 +40,6 @@ class DisplayTable
         $data = $model->when(isset($relationData), function ($query) use ($relationData) {
             $query->with($relationData);
         })->paginate($this->getPagination());
-
         $fields = array();
 
         foreach ($data as $key => $row)
@@ -65,8 +64,10 @@ class DisplayTable
             }
             $fields[$key]['brRowId'] = $row->id;
         }
+        $response['data'] = $data;
+        $response['view'] = View::make('bradmin::SectionBuilder/Display/Table/table')->with(compact('data', 'columns', 'fields'));
 
-        return View::make('bradmin::SectionBuilder/Display/Table/table')->with(compact('data', 'columns', 'fields'));
+        return $response;
     }
 
     /**

@@ -5,6 +5,9 @@ namespace Bradmin;
 
 class Section
 {
+    protected $model = null;
+    protected $title = null;
+
     private $class;
 
     public function __construct(\Illuminate\Contracts\Foundation\Application $app)
