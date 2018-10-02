@@ -27,9 +27,19 @@ Route::post('/'.config('bradmin.admin_url').'/{section}/create', [
     'uses' => 'Bradmin\Controllers\BrAdminController@getCreate',
 ]);
 
-Route::post('/'.config('bradmin.admin_url').'/{section}/edit/{id}', [
+Route::post('/'.config('bradmin.admin_url').'/{section}/create-action', [
+    'as'   => 'bradmin.section.create.form',
+    'uses' => 'Bradmin\Controllers\BrAdminController@createAction',
+]);
+
+Route::post('/'.config('bradmin.admin_url').'/{section}/{id}/edit/', [
     'as'   => 'bradmin.section.edit.form',
     'uses' => 'Bradmin\Controllers\BrAdminController@getEdit',
+]);
+
+Route::post('/'.config('bradmin.admin_url').'/{section}/{id}/edit-action/', [
+    'as'   => 'bradmin.section.edit.form',
+    'uses' => 'Bradmin\Controllers\BrAdminController@editAction',
 ]);
 
 Route::post('/'.config('bradmin.admin_url').'/{section}/update', [
