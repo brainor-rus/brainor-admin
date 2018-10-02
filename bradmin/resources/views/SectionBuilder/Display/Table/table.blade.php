@@ -1,3 +1,13 @@
+<div class="row pb-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ Request::url() }}/create" class="btn btn-primary">Создать</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <table class="table">
     <thead>
     <tr>

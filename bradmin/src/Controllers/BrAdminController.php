@@ -59,20 +59,50 @@ class BrAdminController extends Controller
         return $this->render($html,$pagination,$meta);
     }
 
-    public function getCreate()
+    public function getCreate(Section $section, $sectionName)
     {
-        return response()->json([
-                'html' => View::make('bradmin::dashboard')->render(),
-                'meta' => [
-                    'title' => 'Главная'
-                ]
-            ]
-        );
+        $display = $section->fireCreate($sectionName);
+        $sectionModelSettings = $section->getSectionSettings($sectionName);
+
+        $html = $display->render($sectionModelSettings['model'] ?? config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName))), $sectionName);
+        $meta = [
+            'title' => $sectionModelSettings['title'] . '| Новая запись'
+        ];
+
+        return $this->render($html, '', $meta);
     }
 
-    public function getEdit()
+    public function createAction(Section $section, $sectionName, Request $request)
     {
+        $sectionModelSettings = $section->getSectionSettings($sectionName);
+        $modelPath = $sectionModelSettings['model'] ?? config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName)));
 
+        $modelPath::create($request->all());
+
+        return redirect()->back();
+    }
+
+    public function getEdit(Section $section, $sectionName, $id)
+    {
+        $display = $section->fireEdit($sectionName);
+        $sectionModelSettings = $section->getSectionSettings($sectionName);
+
+        $html = $display->render($sectionModelSettings['model'] ?? config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName))), $sectionName, $id);
+        $meta = [
+            'title' => $sectionModelSettings['title'] . '| Редактирование'
+        ];
+
+        return $this->render($html, '', $meta);
+    }
+
+    public function editAction(Section $section, $sectionName, Request $request, $id)
+    {
+        $sectionModelSettings = $section->getSectionSettings($sectionName);
+        $modelPath = $sectionModelSettings['model'] ?? config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName)));
+
+        $modelPath::where('id', $id)->update($request->all());
+
+        return redirect()->back();
     }
 
     public function postEdit()
@@ -90,9 +120,9 @@ class BrAdminController extends Controller
         return response()->json([
                 'html' => View::make('bradmin::content.general')->with(compact('html'))->render(),
                 'data' => [
-                    'pagination' => $pagination,
+                    'pagination' => $pagination ?? '',
                     ],
-                'meta' => $meta
+                'meta' => $meta ?? ''
             ]
         );
     }

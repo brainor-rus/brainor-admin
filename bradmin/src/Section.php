@@ -40,6 +40,34 @@ class Section
         return $display;
     }
 
+    public function fireCreate($sectionName,array $payload = [])
+    {
+        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
+
+        if(!class_exists($this->getClass()))
+        {
+            throw new \Exception('Section not found.');
+        }
+
+        $display = $this->app->call([$this->getClass(), 'onCreate'], $payload);
+
+        return $display;
+    }
+
+    public function fireEdit($sectionName,array $payload = [])
+    {
+        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
+
+        if(!class_exists($this->getClass()))
+        {
+            throw new \Exception('Section not found.');
+        }
+
+        $display = $this->app->call([$this->getClass(), 'onEdit'], $payload);
+
+        return $display;
+    }
+
 //    public function getTitle($sectionName)
 //    {
 //        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
