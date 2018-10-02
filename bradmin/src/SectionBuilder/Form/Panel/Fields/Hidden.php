@@ -56,9 +56,10 @@ class Hidden
     }
 
 
-    public function render($value = null)
+    public function render()
     {
         $name = $this->getName();
+        $value = $this->getValue();
 
         return View::make('bradmin::SectionBuilder/Form/Fields/hidden')
             ->with(compact('name', 'value'));
