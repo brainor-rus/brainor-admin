@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Request;
 class Users extends Section
 {
     protected $title = 'Пользователи';
+    protected $model = '\App\User';
 
     public static function onDisplay(Request $request){
 
@@ -19,7 +20,7 @@ class Users extends Section
             Column::text('email', 'Email'),
 //            Column::text('contact.value', 'Контакты'),
 //            Column::text('roles.name', 'Роли'),
-        ])->setPagination(2);
+        ])->setPagination(1);
 
         return $display;
     }

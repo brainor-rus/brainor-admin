@@ -37,9 +37,11 @@ class BrAdminController extends Controller
 
     public function getDisplay(Section $section, $sectionName)
     {
-
         $display = $section->fireDisplay($sectionName);
-        $results = $display->render($sectionName);
+        $sectionModelSettings = $section->getSectionSettings($sectionName);
+
+        $results = $display->render($sectionModelSettings['model'] ?? config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName))));
+
         $html = $results['view'];
         $pagination = [
             'total' => $results['data']->total(),
@@ -50,7 +52,7 @@ class BrAdminController extends Controller
             'to' => $results['data']->lastItem()
         ];
         $meta = [
-            'title' => 'Тут будет заголовок'
+            'title' => $sectionModelSettings['title']
         ];
 
 
