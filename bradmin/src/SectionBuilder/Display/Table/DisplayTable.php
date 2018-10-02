@@ -21,7 +21,7 @@ class DisplayTable
         $this->setColumns($columns);
     }
 
-    public function render($sectionName)
+    public function render($modelPath)
     {
         $columns = $this->getColumns();
         $relationData = null;
@@ -35,8 +35,9 @@ class DisplayTable
             }
         }
 
-        $modelPath = config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName)));
-        $model = new $modelPath;
+//        require_once( base_path() . $modelPath . '.php');
+        $model = new $modelPath();
+
         $data = $model->when(isset($relationData), function ($query) use ($relationData) {
             $query->with($relationData);
         })->paginate($this->getPagination());

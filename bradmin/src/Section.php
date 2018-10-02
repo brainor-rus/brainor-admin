@@ -15,6 +15,13 @@ class Section
         $this->app = $app;
     }
 
+    public function getSectionSettings($sectionName)
+    {
+        $section = config('bradmin.user_path').'\\Sections\\'.$sectionName;
+
+        return get_object_vars(new $section($this->app));
+    }
+
     public function fireDisplay($sectionName,array $payload = [])
     {
 
@@ -23,10 +30,51 @@ class Section
 //        }
         $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
 
+        if(!class_exists($this->getClass()))
+        {
+            throw new \Exception('Section not found.');
+        }
+
         $display = $this->app->call([$this->getClass(), 'onDisplay'], $payload);
 
         return $display;
     }
+
+    public function fireCreate($sectionName,array $payload = [])
+    {
+        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
+
+        if(!class_exists($this->getClass()))
+        {
+            throw new \Exception('Section not found.');
+        }
+
+        $display = $this->app->call([$this->getClass(), 'onCreate'], $payload);
+
+        return $display;
+    }
+
+    public function fireEdit($sectionName,array $payload = [])
+    {
+        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
+
+        if(!class_exists($this->getClass()))
+        {
+            throw new \Exception('Section not found.');
+        }
+
+        $display = $this->app->call([$this->getClass(), 'onEdit'], $payload);
+
+        return $display;
+    }
+
+//    public function getTitle($sectionName)
+//    {
+//        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
+//        $title = model
+//
+//        return $display;
+//    }
 
     /**
      * @return mixed
