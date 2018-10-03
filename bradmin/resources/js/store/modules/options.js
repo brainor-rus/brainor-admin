@@ -1,7 +1,7 @@
 // initial state
 const state = {
     adminUrl: window.adminUrl,
-    activeUrlParams: location.host + location.pathname
+    activeUrlParams: location.pathname
 };
 
 // mutations
