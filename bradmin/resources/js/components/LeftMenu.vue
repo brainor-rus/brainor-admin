@@ -2,16 +2,7 @@
     <ul class="main-menu">
         <li class="error" v-if="error">{{ error}}</li>
         <li v-for="menuItem in responseData">
-            <router-link v-if="menuItem.nodes" :to="menuItem.url">
-                <i v-if="menuItem.iconText" class="icon">{{ menuItem.iconText }}</i>
-                <template v-else>
-                    <i v-if="menuItem.icon" class="icon" :class="menuItem.icon"></i>
-                </template>
-                <transition name="fade">
-                    <span v-show="sidebarOpen">{{ menuItem.text }}</span>
-                </transition>
-            </router-link>
-            <router-link v-else :to="menuItem.url" exact>
+            <router-link :to="menuItem.url">
                 <i v-if="menuItem.iconText" class="icon">{{ menuItem.iconText }}</i>
                 <template v-else>
                     <i v-if="menuItem.icon" class="icon" :class="menuItem.icon"></i>
@@ -47,6 +38,7 @@
         },
         methods: {
             fetchData() {
+                console.log(this.$store.state.options.activeUrlParams);
                 this.error = this.responseData = null;
                 this.classes = '';
                 axios
