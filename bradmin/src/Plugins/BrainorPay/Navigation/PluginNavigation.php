@@ -16,17 +16,30 @@ class PluginNavigation
                 'text' => 'Оплата',
                 'nodes' => [
                     [
-                        'url' => '/'.config('bradmin.admin_url').'/pay/banks',
-                        'icon' => 'fas fa-users',
-                        'iconText' => 'Б',
-                        'text' => 'Банки',
+                        'url' => '/bradmin/BrainorPayBanks',
+                        'icon' => 'fas fa-address-book',
+                        'text' => 'Банки'
                     ],
                     [
-                        'url' => '/'.config('bradmin.admin_url').'/pay/comission',
-                        'icon' => 'fas fa-users',
-                        'iconText' => 'К',
-                        'text' => 'Комиссии',
+                        'url' => '/bradmin/BrainorPayBankResponses',
+                        'icon' => 'fas fa-address-book',
+                        'text' => 'Ответы банков'
                     ],
+                    [
+                        'url' => '/bradmin/BrainorPayCommissions',
+                        'icon' => 'fas fa-address-book',
+                        'text' => 'Коммиссии банков'
+                    ],
+                    [
+                        'url' => '/bradmin/BrainorPayStatistics',
+                        'icon' => 'fas fa-address-book',
+                        'text' => 'Статистика'
+                    ],
+                    [
+                        'url' => '/bradmin/BrainorPayStatisticParts',
+                        'icon' => 'fas fa-address-book',
+                        'text' => 'Статистика (доп)'
+                    ]
                 ]
             ]
         ];

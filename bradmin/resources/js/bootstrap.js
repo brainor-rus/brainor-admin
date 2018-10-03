@@ -21,6 +21,7 @@ try {
  */
 
 window.axios = require('axios');
+// require('selectize.js');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

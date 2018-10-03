@@ -7,7 +7,14 @@
         @foreach($columns as $column)
             <div class="{{ $column->getClass() }}">
                 @foreach($column->getFields() as $field)
-                    {!! $field->render($model->{ $field->getName() } ?? null) !!}
+                    @php
+                        $value = $model->{ $field->getName() } ?? null;
+                        if($value instanceof Countable)
+                        {
+                            $value = $value->pluck('id')->toArray();
+                        }
+                    @endphp
+                    {!! $field->render($value) !!}
                 @endforeach
             </div>
         @endforeach
