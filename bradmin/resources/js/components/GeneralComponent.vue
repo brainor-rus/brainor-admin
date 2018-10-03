@@ -4,7 +4,8 @@
         <div class="error" v-if="error">{{ error}}</div>
         <div v-html="responseHtml"></div>
 
-        <nav v-if="pagination">
+
+        <nav v-if="pagination.pagesNumber.length > 1">
             <ul class="pagination" role="navigation">
                 <li class="page-item" v-bind:class="[ pagination.current_page <= 1 ? 'disabled' : '']">
                     <router-link :to="{query: {page: 1}}" class="page-link" aria-label="« First">
@@ -62,11 +63,6 @@
                 },
             };
         },
-        created: function () {
-            this.fetchData(this.currentPage);
-            this.$store.commit('activeUrlParams', this.$route.path);
-            console.log(this.$store.state.options.activeUrlParams);
-        },
         computed: {
             currentPage() {
                 if (typeof this.$route.query.page === 'undefined') {
@@ -76,9 +72,27 @@
                 }
             },
         },
+        created: function () {
+            this.fetchData(this.currentPage);
+            this.$store.commit('activeUrlParams', this.$route.path);
+        },
+        updated: function () {
+            this.$nextTick(function () {
+                $('.multiselect').selectize({
+                    plugins: ['remove_button'],
+                    delimiter: ',',
+                    persist: false,
+                    create: function(input) {
+                        return {
+                            value: input,
+                            text: input
+                        }
+                    }
+                });
+            })
+        },
         methods: {
             fetchData(page) {
-
                 this.error = this.responseData = null;
                 this.loading = true;
                 this.classes = '';
@@ -89,7 +103,6 @@
                 else{
                     ajaxUrl = this.$route.path;
                 }
-                this.$router.replace({ query: {page: page} })
                 axios
                     .post(ajaxUrl,
                         {'page':this.currentPage,}
@@ -98,6 +111,8 @@
                         if (typeof response.data.data !== 'undefined') {
                             this.responseData = response.data.data;
                             if (typeof response.data.data.pagination !== 'undefined') {
+
+
                                 this.pagination.total = response.data.data.pagination.total;
                                 this.pagination.per_page = response.data.data.pagination.per_page;
                                 this.pagination.from = response.data.data.pagination.from;
@@ -119,6 +134,10 @@
                                     from++;
                                 }
                                 this.pagination.pagesNumber = pagesArray;
+
+                                if( this.pagination.pagesNumber.length > 1){
+                                    this.$router.replace({ query: {page: page} })
+                                }
                             }
                         }
 
@@ -146,21 +165,6 @@
                 this.pagination.current_page = page;
                 this.fetchData(page);
             }
-        },
-        updated: function () {
-            this.$nextTick(function () {
-                $('.multiselect').selectize({
-                    plugins: ['remove_button'],
-                    delimiter: ',',
-                    persist: false,
-                    create: function(input) {
-                        return {
-                            value: input,
-                            text: input
-                        }
-                    }
-                });
-            })
         }
     }
 </script>

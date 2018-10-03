@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from './store';
+import VueCookie from 'vue-cookie';
 
 Vue.use(VueRouter);
+Vue.use(VueCookie);
 
 import App from './components/App';
 import Home from './components/Home';

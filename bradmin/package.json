@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "argon-design-system-free": "^1.0.1",
+        "vue-cookie": "^1.1.4",
         "vue-router": "^3.0.1",
         "vuex": "^3.0.1"
     }

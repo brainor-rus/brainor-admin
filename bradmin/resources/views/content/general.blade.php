@@ -1,1 +1,1 @@
-{{ print_r($html) }}
+{!! $html !!}
