@@ -40,7 +40,7 @@
 <script>
     import axios from 'axios';
     import $ from 'jquery'
-    import 'selectize.js';
+    import 'selectize';
 
     export default {
         data(){
@@ -147,7 +147,7 @@
                 this.fetchData(page);
             }
         },
-        mounted: function () {
+        updated: function () {
             this.$nextTick(function () {
                 $('.multiselect').selectize({
                     plugins: ['remove_button'],

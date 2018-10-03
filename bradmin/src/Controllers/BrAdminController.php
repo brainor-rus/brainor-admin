@@ -2,8 +2,10 @@
 
 namespace Bradmin\Controllers;
 
+use Bradmin\SectionBuilder\Form\FormAction\FormAction;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 
 use Bradmin\Section;
@@ -77,7 +79,21 @@ class BrAdminController extends Controller
         $sectionModelSettings = $section->getSectionSettings($sectionName);
         $modelPath = $sectionModelSettings['model'] ?? config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName)));
 
-        $modelPath::create($request->all());
+        $model = new $modelPath;
+        $attrFields = Schema::getColumnListing($model->getTable());
+        $relationFields = array_diff_key($request->all(), array_flip($attrFields));
+
+        $model = $model::create($request->all());
+        $model = $model->where('id', $model->id)
+            ->when(isset($relationFields), function ($query) use ($relationFields) {
+                $query->with(array_keys($relationFields));
+            })
+            ->first();
+
+//        FormAction::save($model, $request);
+        FormAction::saveBelongsToRelations($model, $request);
+        FormAction::saveBelongsToManyRelations($model, $request);
+        FormAction::saveHasOneRelations($model, $request);
 
         return redirect()->back();
     }
@@ -100,7 +116,22 @@ class BrAdminController extends Controller
         $sectionModelSettings = $section->getSectionSettings($sectionName);
         $modelPath = $sectionModelSettings['model'] ?? config('bradmin.base_models_path') . studly_case(strtolower(str_singular($sectionName)));
 
-        $modelPath::where('id', $id)->update($request->all());
+        $model = new $modelPath;
+        $attrFields = Schema::getColumnListing($model->getTable());
+        $relationFields = array_diff_key($request->all(), array_flip($attrFields));
+
+        $model = $model->where('id', $id)
+            ->when(isset($relationFields), function ($query) use ($relationFields) {
+                $query->with(array_keys($relationFields));
+            })
+            ->first();
+
+        FormAction::save($model, $request);
+        FormAction::saveBelongsToRelations($model, $request);
+        FormAction::saveBelongsToManyRelations($model, $request);
+        FormAction::saveHasOneRelations($model, $request);
+
+//        $modelPath::where('id', $id)->update($request->all());
 
         return redirect()->back();
     }

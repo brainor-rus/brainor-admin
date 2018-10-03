@@ -170,11 +170,10 @@ class MultiSelect
         return $this->modelForOptions;
     }
 
-    public function render()
+    public function render($value = null)
     {
         $name = $this->getName();
         $label = $this->getLabel();
-        $value = $this->getValue();
         $required = $this->getRequired();
         $readonly = $this->getReadonly();
         $options = $this->getOptions();

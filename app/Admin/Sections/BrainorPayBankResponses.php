@@ -2,6 +2,7 @@
 
 namespace App\Admin\Sections;
 
+use App\BrainorPayBank;
 use App\User;
 use Bradmin\Section;
 use Bradmin\SectionBuilder\Display\BaseDisplay\Display;
@@ -10,14 +11,16 @@ use Bradmin\SectionBuilder\Form\BaseForm\Form;
 use Bradmin\SectionBuilder\Form\Panel\Columns\BaseColumn\FormColumn;
 use Bradmin\SectionBuilder\Form\Panel\Fields\BaseField\FormField;
 
-class Contacts extends Section
+class BrainorPayBankResponses extends Section
 {
     public static function onDisplay(){
         $display = Display::table([
             Column::text('id', '#'),
-            Column::text('value', 'Значение'),
+            Column::text('brainorPayBank.name', 'Банк'),
+            Column::text('code', 'Код'),
+            Column::text('text', 'Текст'),
             Column::text('created_at', 'Дата добавления'),
-            Column::text('user.name', 'Пользователь'),
+            Column::text('updated_at', 'Дата обновления'),
         ])->setPagination(10);
 
         return $display;
@@ -32,11 +35,12 @@ class Contacts extends Section
     {
         $form = Form::panel([
             FormColumn::column([
-                FormField::input('value', 'Значение')->setRequired(true),
-                FormField::select('user_id', 'Пользователь')
-                    ->setModelForOptions(User::class)
+                FormField::select('bank_id', 'Банк')
+                    ->setModelForOptions(BrainorPayBank::class)
                     ->setDisplay('name')
-                    ->setRequired(true)
+                    ->setRequired(true),
+                FormField::input('code', 'Код')->setRequired(true),
+                FormField::input('text', 'Текст')->setRequired(true),
             ]),
         ]);
 

@@ -27,6 +27,7 @@ class Users extends Section
             Column::text('created_at', 'Дата добавления'),
 //            Column::text('contact.value', 'Контакт'),
             Column::text('roles.name', 'Роли'),
+            Column::text('contact.value', 'Контакт'),
         ])->setPagination(10);
 
         return $display;
@@ -50,6 +51,9 @@ class Users extends Section
             FormColumn::column([
                 FormField::input('email', 'Email')->setRequired(true)
                     ->setPlaceholder('Email пользователя'),
+                FormField::select('contact', 'Контакт')
+                    ->setModelForOptions(Contact::class)
+                    ->setDisplay('value'),
                 FormField::custom('<b>Кастомное поле</b>')
             ], 'col-4'),
         ]);

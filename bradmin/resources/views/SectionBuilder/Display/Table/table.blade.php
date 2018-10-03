@@ -8,16 +8,17 @@
     </div>
 </div>
 
-<table class="table">
-    <thead>
-    <tr>
-        @foreach($columns as $column)
-            <th scope="col">{{ $column->getLabel() }}</th>
-        @endforeach
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            @foreach($columns as $column)
+                <th scope="col">{{ $column->getLabel() }}</th>
+            @endforeach
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach($fields as $field)
             <tr>
                 @foreach($columns as $column)
@@ -41,5 +42,6 @@
                 </td>
             </tr>
         @endforeach
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

@@ -10,14 +10,15 @@ use Bradmin\SectionBuilder\Form\BaseForm\Form;
 use Bradmin\SectionBuilder\Form\Panel\Columns\BaseColumn\FormColumn;
 use Bradmin\SectionBuilder\Form\Panel\Fields\BaseField\FormField;
 
-class Contacts extends Section
+class BrainorPayBanks extends Section
 {
     public static function onDisplay(){
         $display = Display::table([
             Column::text('id', '#'),
-            Column::text('value', 'Значение'),
+            Column::text('name', 'Название'),
+            Column::text('bik', 'Бик'),
             Column::text('created_at', 'Дата добавления'),
-            Column::text('user.name', 'Пользователь'),
+            Column::text('updated_at', 'Дата обновления'),
         ])->setPagination(10);
 
         return $display;
@@ -32,11 +33,8 @@ class Contacts extends Section
     {
         $form = Form::panel([
             FormColumn::column([
-                FormField::input('value', 'Значение')->setRequired(true),
-                FormField::select('user_id', 'Пользователь')
-                    ->setModelForOptions(User::class)
-                    ->setDisplay('name')
-                    ->setRequired(true)
+                FormField::input('name', 'Название')->setRequired(true),
+                FormField::input('bik', 'Бик')->setRequired(true),
             ]),
         ]);
 
