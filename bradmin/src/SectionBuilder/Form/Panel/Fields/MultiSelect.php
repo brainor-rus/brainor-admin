@@ -11,7 +11,7 @@ namespace Bradmin\SectionBuilder\Form\Panel\Fields;
 
 use Illuminate\Support\Facades\View;
 
-class Select
+class MultiSelect
 {
     private $name, $label, $value, $required, $readonly, $options, $modelForOptions, $display;
 
@@ -178,7 +178,7 @@ class Select
         $readonly = $this->getReadonly();
         $options = $this->getOptions();
 
-        return View::make('bradmin::SectionBuilder/Form/Fields/select')
+        return View::make('bradmin::SectionBuilder/Form/Fields/multiselect')
             ->with(compact('name', 'label', 'value', 'required', 'readonly', 'options'));
     }
 }

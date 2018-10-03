@@ -1,3 +1,6 @@
+<style>
+    @import '~selectize/dist/css/selectize.bootstrap3.css';
+</style>
 <template>
     <div class="main-wrapper">
             <div class="fixed-sidebar-wrapper"

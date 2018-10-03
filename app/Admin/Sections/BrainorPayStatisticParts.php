@@ -2,6 +2,8 @@
 
 namespace App\Admin\Sections;
 
+use App\BrainorPayBank;
+use App\BrainorPayStatistic;
 use App\User;
 use Bradmin\Section;
 use Bradmin\SectionBuilder\Display\BaseDisplay\Display;
@@ -10,14 +12,17 @@ use Bradmin\SectionBuilder\Form\BaseForm\Form;
 use Bradmin\SectionBuilder\Form\Panel\Columns\BaseColumn\FormColumn;
 use Bradmin\SectionBuilder\Form\Panel\Fields\BaseField\FormField;
 
-class Contacts extends Section
+class BrainorPayStatisticParts extends Section
 {
     public static function onDisplay(){
         $display = Display::table([
             Column::text('id', '#'),
-            Column::text('value', 'Значение'),
+            Column::text('brainorPayStatistic.id', 'Статистика'),
+            Column::text('connection_id', 'connection_id'),
+            Column::text('connection_type', 'connection_type'),
+            Column::text('amount', 'Сумма'),
             Column::text('created_at', 'Дата добавления'),
-            Column::text('user.name', 'Пользователь'),
+            Column::text('updated_at', 'Дата обновления'),
         ])->setPagination(10);
 
         return $display;
@@ -32,12 +37,13 @@ class Contacts extends Section
     {
         $form = Form::panel([
             FormColumn::column([
-                FormField::input('value', 'Значение')->setRequired(true),
-                FormField::select('user_id', 'Пользователь')
-                    ->setModelForOptions(User::class)
-                    ->setDisplay('name')
-                    ->setRequired(true)
-            ]),
+                FormField::select('pay_statistic_id', 'Статистика')
+                    ->setModelForOptions(BrainorPayStatistic::class)
+                    ->setDisplay('id')
+                ->setRequired(true),
+                FormField::input('connection_type', 'connection_type'),
+                FormField::input('amount', 'Сумма'),
+            ])
         ]);
 
         return $form;
