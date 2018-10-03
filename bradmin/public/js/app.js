@@ -16013,13 +16013,17 @@ var mutations = {
 "use strict";
 // initial state
 var state = {
-    adminUrl: window.adminUrl
+    adminUrl: window.adminUrl,
+    activeUrlParams: location.host + location.pathname
 };
 
 // mutations
 var mutations = {
     adminUrlUpdate: function adminUrlUpdate(state, newUrl) {
         state.adminUrl = newUrl;
+    },
+    activeUrlParams: function activeUrlParams(state, newUrl) {
+        state.activeUrlParams = newUrl;
     }
 };
 
@@ -16212,15 +16216,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -16247,6 +16242,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchData: function fetchData() {
             var _this = this;
 
+            console.log(this.$store.state.options.activeUrlParams);
             this.error = this.responseData = null;
             this.classes = '';
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/bradmin/sidebar-menu').then(function (response) {
@@ -17209,16 +17205,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['menuItemNodes'],
@@ -17245,79 +17231,39 @@ var render = function() {
       return _c(
         "li",
         [
-          menuItem.nodes
-            ? _c(
-                "router-link",
-                { attrs: { to: menuItem.url } },
-                [
-                  menuItem.iconText
-                    ? _c("i", { staticClass: "icon" }, [
-                        _vm._v(_vm._s(menuItem.iconText))
-                      ])
-                    : [
-                        menuItem.icon
-                          ? _c("i", {
-                              staticClass: "icon",
-                              class: menuItem.icon
-                            })
-                          : _vm._e()
-                      ],
-                  _vm._v(" "),
-                  _c("transition", { attrs: { name: "fade" } }, [
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.sidebarOpen,
-                            expression: "sidebarOpen"
-                          }
-                        ]
-                      },
-                      [_vm._v(_vm._s(menuItem.text))]
-                    )
+          _c(
+            "router-link",
+            { attrs: { to: menuItem.url } },
+            [
+              menuItem.iconText
+                ? _c("i", { staticClass: "icon" }, [
+                    _vm._v(_vm._s(menuItem.iconText))
                   ])
-                ],
-                2
-              )
-            : _c(
-                "router-link",
-                { attrs: { to: menuItem.url, exact: "" } },
-                [
-                  menuItem.iconText
-                    ? _c("i", { staticClass: "icon" }, [
-                        _vm._v(_vm._s(menuItem.iconText))
-                      ])
-                    : [
-                        menuItem.icon
-                          ? _c("i", {
-                              staticClass: "icon",
-                              class: menuItem.icon
-                            })
-                          : _vm._e()
-                      ],
-                  _vm._v(" "),
-                  _c("transition", { attrs: { name: "fade" } }, [
-                    _c(
-                      "span",
+                : [
+                    menuItem.icon
+                      ? _c("i", { staticClass: "icon", class: menuItem.icon })
+                      : _vm._e()
+                  ],
+              _vm._v(" "),
+              _c("transition", { attrs: { name: "fade" } }, [
+                _c(
+                  "span",
+                  {
+                    directives: [
                       {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.sidebarOpen,
-                            expression: "sidebarOpen"
-                          }
-                        ]
-                      },
-                      [_vm._v(_vm._s(menuItem.text))]
-                    )
-                  ])
-                ],
-                2
-              ),
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.sidebarOpen,
+                        expression: "sidebarOpen"
+                      }
+                    ]
+                  },
+                  [_vm._v(_vm._s(menuItem.text))]
+                )
+              ])
+            ],
+            2
+          ),
           _vm._v(" "),
           menuItem.nodes
             ? _c("left-menu-recursive", {
@@ -17363,79 +17309,39 @@ var render = function() {
         return _c(
           "li",
           [
-            menuItem.nodes
-              ? _c(
-                  "router-link",
-                  { attrs: { to: menuItem.url } },
-                  [
-                    menuItem.iconText
-                      ? _c("i", { staticClass: "icon" }, [
-                          _vm._v(_vm._s(menuItem.iconText))
-                        ])
-                      : [
-                          menuItem.icon
-                            ? _c("i", {
-                                staticClass: "icon",
-                                class: menuItem.icon
-                              })
-                            : _vm._e()
-                        ],
-                    _vm._v(" "),
-                    _c("transition", { attrs: { name: "fade" } }, [
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.sidebarOpen,
-                              expression: "sidebarOpen"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(menuItem.text))]
-                      )
+            _c(
+              "router-link",
+              { attrs: { to: menuItem.url } },
+              [
+                menuItem.iconText
+                  ? _c("i", { staticClass: "icon" }, [
+                      _vm._v(_vm._s(menuItem.iconText))
                     ])
-                  ],
-                  2
-                )
-              : _c(
-                  "router-link",
-                  { attrs: { to: menuItem.url, exact: "" } },
-                  [
-                    menuItem.iconText
-                      ? _c("i", { staticClass: "icon" }, [
-                          _vm._v(_vm._s(menuItem.iconText))
-                        ])
-                      : [
-                          menuItem.icon
-                            ? _c("i", {
-                                staticClass: "icon",
-                                class: menuItem.icon
-                              })
-                            : _vm._e()
-                        ],
-                    _vm._v(" "),
-                    _c("transition", { attrs: { name: "fade" } }, [
-                      _c(
-                        "span",
+                  : [
+                      menuItem.icon
+                        ? _c("i", { staticClass: "icon", class: menuItem.icon })
+                        : _vm._e()
+                    ],
+                _vm._v(" "),
+                _c("transition", { attrs: { name: "fade" } }, [
+                  _c(
+                    "span",
+                    {
+                      directives: [
                         {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.sidebarOpen,
-                              expression: "sidebarOpen"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(menuItem.text))]
-                      )
-                    ])
-                  ],
-                  2
-                ),
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.sidebarOpen,
+                          expression: "sidebarOpen"
+                        }
+                      ]
+                    },
+                    [_vm._v(_vm._s(menuItem.text))]
+                  )
+                ])
+              ],
+              2
+            ),
             _vm._v(" "),
             menuItem.nodes
               ? _c("left-menu-recursive", {
@@ -17707,6 +17613,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     created: function created() {
         this.fetchData(this.currentPage);
+        this.$store.commit('activeUrlParams', this.$route.path);
+        console.log(this.$store.state.options.activeUrlParams);
     },
     computed: {
         currentPage: function currentPage() {
@@ -17730,7 +17638,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 ajaxUrl = this.$route.path;
             }
-            console.log(this.currentPage);
             this.$router.replace({ query: { page: page } });
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(ajaxUrl, { 'page': this.currentPage }).then(function (response) {
                 if (typeof response.data.data !== 'undefined') {

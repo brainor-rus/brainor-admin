@@ -62,6 +62,8 @@
         },
         created: function () {
             this.fetchData(this.currentPage);
+            this.$store.commit('activeUrlParams', this.$route.path);
+            console.log(this.$store.state.options.activeUrlParams);
         },
         computed: {
             currentPage() {
@@ -85,7 +87,6 @@
                 else{
                     ajaxUrl = this.$route.path;
                 }
-                console.log(this.currentPage);
                 this.$router.replace({ query: {page: page} })
                 axios
                     .post(ajaxUrl,
