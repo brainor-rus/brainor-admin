@@ -12,6 +12,7 @@ namespace Bradmin\SectionBuilder\Form\Panel\Fields\BaseField;
 use Bradmin\SectionBuilder\Form\Panel\Fields\Custom;
 use Bradmin\SectionBuilder\Form\Panel\Fields\Hidden;
 use Bradmin\SectionBuilder\Form\Panel\Fields\Input;
+use Bradmin\SectionBuilder\Form\Panel\Fields\MultiSelect;
 use Bradmin\SectionBuilder\Form\Panel\Fields\Select;
 
 class FormField
@@ -24,6 +25,11 @@ class FormField
     public static function select($name, $label)
     {
         return new Select($name, $label);
+    }
+
+    public static function multiselect($name, $label)
+    {
+        return new MultiSelect($name, $label);
     }
 
     public static function hidden($name)

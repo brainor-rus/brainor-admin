@@ -39,6 +39,8 @@
 </template>
 <script>
     import axios from 'axios';
+    import $ from 'jquery'
+    import 'selectize.js';
 
     export default {
         data(){
@@ -144,6 +146,21 @@
                 this.pagination.current_page = page;
                 this.fetchData(page);
             }
+        },
+        mounted: function () {
+            this.$nextTick(function () {
+                $('.multiselect').selectize({
+                    plugins: ['remove_button'],
+                    delimiter: ',',
+                    persist: false,
+                    create: function(input) {
+                        return {
+                            value: input,
+                            text: input
+                        }
+                    }
+                });
+            })
         }
     }
 </script>
