@@ -141,9 +141,12 @@ class BrAdminController extends Controller
 
     }
 
-    public function deleteDelete()
-    {
 
+    public function deleteDelete(Section $section, $sectionName, $id)
+    {
+//        $display = $section->fireDelete($sectionName);
+//        $sectionModelSettings = $section->getSectionSettings($sectionName);
+//        return $this->render($display);
     }
 
     public function render($html, $pagination=null, $meta=null)

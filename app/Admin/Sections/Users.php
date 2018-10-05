@@ -60,4 +60,9 @@ class Users extends Section
 
         return $form;
     }
+
+    public function isDeletable(\Illuminate\Database\Eloquent\Model $model)
+    {
+        return true;
+    }
 }
