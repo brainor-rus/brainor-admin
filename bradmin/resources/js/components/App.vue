@@ -29,6 +29,7 @@
         </div>
     </div>
 </template>
+
 <script>
     import LeftMenu from './LeftMenu';
     import LeftSidebarHeader from './LeftSidebarHeader';
