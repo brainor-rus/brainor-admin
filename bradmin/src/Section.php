@@ -78,6 +78,7 @@ class Section
             throw new \Exception('Section not found.');
         }
 
+
         return $this->getClass();
     }
 

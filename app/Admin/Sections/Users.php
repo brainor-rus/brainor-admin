@@ -63,6 +63,6 @@ class Users extends Section
 
     public function isDeletable(\Illuminate\Database\Eloquent\Model $model)
     {
-        return false;
+        return true;
     }
 }
