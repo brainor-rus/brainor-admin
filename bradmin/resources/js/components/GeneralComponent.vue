@@ -36,14 +36,24 @@
             </ul>
         </nav>
 
+        <div v-if="showModal">
+            <transition name="modal">
+                <modal @close="showModal = false"></modal>
+            </transition>
+        </div>
+
     </div>
 </template>
+
+
 <script>
     import axios from 'axios';
     import $ from 'jquery'
     import 'selectize';
+    import modal from './DeleteModal';
 
     export default {
+        components: { modal },
         data(){
             return {
                 loading: false,
@@ -51,6 +61,7 @@
                 responseHtml: null,
                 error: null,
                 classes: '',
+                showModal: false,
                 pagination: {
                     total: 0,
                     per_page: 7,
@@ -61,6 +72,7 @@
                     each_side: 3,
                     pagesNumber:[]
                 },
+                link:"",
             };
         },
         computed: {
@@ -75,6 +87,7 @@
         created: function () {
             this.fetchData(this.currentPage);
             this.$store.commit('activeUrlParams', this.$route.path);
+
         },
         updated: function () {
             this.$nextTick(function () {
@@ -89,9 +102,21 @@
                         }
                     }
                 });
-            })
+            });
+            var vm = this;
+            $('.delete-btn').on('click', function () {
+                vm.show_modal();
+                vm.setLink($(this).data('deleteLink'));
+                console.log(this.showModal);
+            });
         },
         methods: {
+            show_modal(){
+                this.showModal = true;
+            },
+            setLink(link){
+                this.link = link;
+            },
             fetchData(page) {
                 this.error = this.responseData = null;
                 this.loading = true;

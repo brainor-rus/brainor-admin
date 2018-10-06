@@ -2,6 +2,7 @@
 
 namespace Bradmin;
 
+use Illuminate\Database\Eloquent\Model;
 
 class Section
 {
@@ -68,6 +69,19 @@ class Section
         return $display;
     }
 
+    public function fireDelete($sectionName,array $payload = [])
+    {
+        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
+
+        if(!class_exists($this->getClass()))
+        {
+            throw new \Exception('Section not found.');
+        }
+
+
+        return $this->getClass();
+    }
+
 //    public function getTitle($sectionName)
 //    {
 //        $this->setClass(config('bradmin.user_path').'\\Sections\\'.$sectionName);
@@ -91,4 +105,21 @@ class Section
     {
         $this->class = $class;
     }
+
+    public function isCreatable()
+    {
+        return method_exists($this, 'onCreate') && parent::isCreatable($this->getModel());
+    }
+
+    public function isEditable(Model $model)
+    {
+        return method_exists($this, 'onEdit') && parent::isEditable($model);
+    }
+
+    public function isDeletable(Model $model)
+    {
+        return method_exists($this, 'onDelete') && parent::isDeletable($model);
+    }
+
+
 }
