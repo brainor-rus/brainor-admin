@@ -10533,6 +10533,7 @@ body {
 
 .fixed-sidebar-wrapper.open {
   overflow-y: auto;
+  width: 260px;
 }
 
 .fixed-sidebar-wrapper::-webkit-scrollbar-track {
@@ -10613,11 +10614,39 @@ body {
   color: #0d2746;
 }
 
+.collapsable .toggler:after {
+  content: "\F0D7";
+}
+
+.collapsable.toggled .toggler:after {
+  content: "\F0D8";
+}
+
+.router-link-active.collapsable .toggler:after {
+  content: "\F0D8";
+}
+
+.router-link-exact-active.collapsable .toggler:after {
+  content: "\F0D8";
+}
+
+.toggler {
+  right: 15px;
+  position: absolute;
+  top: 40%;
+}
+
 .content-wrapper {
   min-height: 100vh;
   width: calc(100% - 80px);
   margin-left: auto;
   background: #e1e2e7;
+  -webkit-transition: width .3s;
+  transition: width .3s;
+}
+
+.content-wrapper.open {
+  width: calc(100% - 260px);
 }
 
 .panel-header {
