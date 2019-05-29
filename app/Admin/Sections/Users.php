@@ -43,6 +43,7 @@ class Users extends Section
         $form = Form::panel([
             FormColumn::column([
                 FormField::input('name', 'Имя')->setRequired(true),
+                FormField::datepicker('date', 'Дата','2018-10-01')->setRequired(true),
                 FormField::multiselect('roles', 'Роли')
                     ->setModelForOptions(Role::class)
                     ->setDisplay('name'),

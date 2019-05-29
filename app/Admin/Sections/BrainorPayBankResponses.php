@@ -40,7 +40,7 @@ class BrainorPayBankResponses extends Section
                     ->setDisplay('name')
                     ->setRequired(true),
                 FormField::input('code', 'Код')->setRequired(true),
-                FormField::input('text', 'Текст')->setRequired(true),
+                FormField::textarea('text', 'Текст')->setRequired(true)->setRows(2),
             ]),
         ]);
 
